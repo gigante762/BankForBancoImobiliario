@@ -40,7 +40,7 @@
 				$qtd = number_format($_POST['qtd'], 0, '', '.');
 				
 				$d = date('H:i:s');
-				array_unshift($data['news'], "$d - <b>$name</b> transferiu R\$$qtd para <b>$para</b>");
+				array_unshift($data['news'], "$d - <b>$name</b> transferiu <spam  class='text-warning '>R\$$qtd</spam> para <b>$para</b>");
 				if (count($data['news']) > 6)
 					array_pop($data['news']);
 				

@@ -1,0 +1,27 @@
+body
+{
+	background: whitesmoke;
+}
+
+.menu
+{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background: black;
+    color: white;
+    margin-top: 20px;
+	
+}
+
+.card
+{
+	padding: 10px;
+}
+
+.bancoBTN
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

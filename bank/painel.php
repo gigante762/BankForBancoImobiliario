@@ -83,18 +83,19 @@
 
 		//just for debug 
 		let attnomes= false;
-
-		let bug = '';
+		let currentmoney = 10
 
 		let lastNew = ''
 		
-		$('#name').html(name)
+		$('#name').html(name.charAt(0).toUpperCase() + name.slice(1))
 
 		// hide the notification after some time
+		/*
 		window.setTimeout(function(){
             $('[notification]').fadeOut('slow')
             $( "[notification]" ).remove();
         }, 3000);
+        */
 				
 
 		$('#transferirBtn').on('click', function(ev){
@@ -109,6 +110,19 @@
 			ev.preventDefault()
 			sacarBanco()
 		})
+		$('#moneyTransfer').on('change', function(ev){
+			//ev.preventDefault()
+			//sacarBanco()
+			let qtd = Number($('#moneyTransfer').val())
+			if (qtd > currentmoney)
+			{
+				moneyTransfer.className = 'form-control border-danger'
+				gerarNotification('Saldo insuficiente.')
+			}
+			else
+				moneyTransfer.classList.remove('border-danger')	
+		})
+		
 			
 		//update at begin 
 		att()

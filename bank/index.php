@@ -10,7 +10,7 @@
 	<h4>Logar</h4>	
 	<form action="acao/logar.php" method = "post">
 		Escolha a conta: 
-		<select name ='name'>
+		<select name ='name' id ='select'>
 			<?php
 				$data = json_decode(file_get_contents('acao/data.json'),true);
 				//var_dump($data['users']);
@@ -34,5 +34,19 @@
 		<input type="number" name="money">
 		<input type="submit" name="submit" value="Cadastrar">	
 	</form>
+
+	<script type="text/javascript">
+		let ele = document.getElementById('select')
+		let name = document.getElementById('select').value
+
+		ele.onchange = function () {
+			let name =ele.value
+			localStorage.setItem('name',name)
+			//console.log(name)
+		}
+		localStorage.setItem('name',name)
+		//console.log(name)
+		
+	</script>
 </body>
 </html>

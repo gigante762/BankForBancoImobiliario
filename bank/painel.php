@@ -10,20 +10,22 @@
 <body>
 	<?php
 		session_start();	
+		//storing the name into a variable
 		$name = $_SESSION['name'];
+
+		//load data from json to memory
 		$data = json_decode(file_get_contents('acao/data.json'),true);
-
+		//get the current money
 		$saldo = $data['users'][$name]
-
 	?>
 
 	<div>
-		<a href="index.php" class="btn-danger " style="
-    padding: 5px;"> < Sair </a>
+		<a href="index.php" class="btn-danger " style="padding: 5px;"> < Sair </a>
 	</div>
+	
 	<div class="menu">			
-			<h5>Bem vindo(a), <?php echo ucfirst($name) ?></h5>
-			<h3 style= 'color: green;'>R$ <tt id='money'></tt></h3>	
+			<h5>Bem vindo(a), <span id='name'></span></h5>
+			<h3 class='display-money-green'>R$ <tt id='money'></tt></h3>	
 	</div>
 	<?php
 		if (isset($_POST['qtd']) && isset($_POST['name']))
@@ -31,50 +33,85 @@
 			$qtd = $_POST['qtd'];
 			$para = ucfirst($_POST['name']);
 			
-			//echo "Transferencia solicitada para {$para} no valor de R$ {$qtd}.";
-
 			if ($saldo >= $qtd)
 			{
+				//remove money
 				$data['users'][$_POST['name']] += $qtd;
-				$data['users'][$name] -= $qtd;
+
+				//transfer money to other acconunt 
+				$data['users'][$name] -= $qtd; 
+
+				//formar a number like a dot style 1.000.000 
 				$qtd = number_format($_POST['qtd'], 0, '', '.');
 				
 				$d = date('H:i:s');
-				array_unshift($data['news'], "$d - <b>$name</b> transferiu <spam  class='text-warning '>R\$$qtd</spam> para <b>$para</b>");
+
+				//add a news message
+				$nameF =  ucfirst($name);
+				$msg = "$d - <b>$nameF</b> transferiu <spam  class='text-warning '>R\$$qtd</spam> para <b>$para</b>";
+				array_unshift($data['news'], $msg);
+
+				//this line keep just six messages in the json file 
 				if (count($data['news']) > 6)
 					array_pop($data['news']);
-				
+
+				//save json file modifided
 				file_put_contents('acao/data.json', json_encode($data));
+
+				//refresh the page to prevent reload and resend of request again.
 				header("Refresh:0");
-				//header('location: painel.php');
+				
 			}
 			else
-			{
-				echo "<div id = 'notificacao'class='alert alert-danger' role='alert'>Saldo insuficiente!</div>";
+			{	//display an alert whose will be fadeOff by the id notification  
+				echo "<div notification class='alert alert-danger' role='alert'>Saldo insuficiente!</div>";
 			}
 		}
 
+		//process the sacar operation 
 		if (isset($_POST['sacar']))
-		{
+		{	
+			//give the money from bank
+			$data['users'][$name] += $_POST['qtd'];
+
+			//format to show as message 
 			$qtd = number_format($_POST['qtd'], 0, '', '.');
-			//echo('sacar');
-			$data['users'][$name] += $qtd;
+						
 			$d = date("H:i:s");
-			array_unshift($data['news'], "$d - <b>$name</b> sacou <spam style='color: green;'>R\$$qtd</spam> do <spam class='text-info'><b>Banco</b></spam>");
+			
+			//insert the message
+			$nameF =  ucfirst($name);
+			$msg =  "$d - <b>$nameF</b> sacou <spam style='color: green;'>R\$$qtd</spam> do <spam class='text-info'><b>Banco</b></spam>";
+			array_unshift($data['news'],$msg);
+
+			//save json file
 			file_put_contents('acao/data.json', json_encode($data));
+
+			//refresh the page to prevent reload and resend of request again.
 			header("Refresh:0");
 
 		}
+		//process the pagar operation
 		else if (isset($_POST['pagar']))
 		{
-			$qtd = number_format($_POST['qtd'], 0, '', '.');
-			//echo('pagar');
-			$data['users'][$name] -= $qtd;
-			$d = date("H:i:s");
-			array_unshift($data['news'], "$d - <b>$name</b> pagou <spam style='color: red;'>R\$$qtd</spam> para o <spam class = 'text-info'><b>Banco</b></spam>");
-			file_put_contents('acao/data.json', json_encode($data));
-			header("Refresh:0");
+			//subtract the money to bank
+			$data['users'][$name] -= $_POST['qtd'];
 
+			//format to show as message 
+			$qtd = number_format($_POST['qtd'], 0, '', '.');
+						
+			$d = date("H:i:s");
+
+			//insert a new message
+			$nameF = ucfirst($name);
+			$msg = "$d - <b>$nameF</b> pagou <spam style='color: red;'>R\$$qtd</spam> para o <spam class = 'text-info'><b>Banco</b></spam>";
+			array_unshift($data['news'], $msg);
+			
+			//save json file
+			file_put_contents('acao/data.json', json_encode($data));
+
+			//refresh the page to prevent reload and resend of request again.
+			header("Refresh:0");
 		}
 	?>
 
@@ -91,14 +128,8 @@
 					        <input type="number" name="qtd" class="form-control" id="inlineFormInputGroup" placeholder="Valor">
 					    </div>
 						<label>Para</label>
-						<select name ='name' class="form-control">
-							<?php
-								foreach ($data['users'] as $key => $value) {
-									if ($name != $key) {
-										echo  "<option value='$key'>".$key."</option>";
-									}
-								} 
-							?>
+						<select id='transfer-to' name ='name' class="form-control">
+							
 						</select>
 						<input type="submit" name="submit" value="Confirmar" class="btn btn-primary mt-2">	
 					</form>
@@ -139,10 +170,35 @@
 	
 
 	<script type="text/javascript" src="jquery.js">
+		
 	</script>
 	<script type="text/javascript">
 
+		//get the name of current user
 		let name = '<?php echo $name; ?>'
+
+		//just for debug 
+		let attnomes= false;
+
+		let lastNew = ''
+		
+		$('#name').html(name)
+
+		function attTransferTo(users)
+		{
+			$('#transfer-to').html('')	
+			for (let user of Object.keys(users))
+			{
+				if (name == user)
+					continue
+
+				let txt = document.createElement("option"); 
+ 				txt.innerText = user;
+
+				$('#transfer-to').append(txt)
+			} 
+			
+		}
 
 		function insertNews(newsA)
 		{
@@ -154,21 +210,54 @@
 			}
 			$('#news').html(txt)
 		}
-		function att()
+
+		function att(func)
 		{
 			 $.ajax({url: "acao/data.json", success: function(result){
-    				//$("#div1").html(result);
-    				//console.log(result)
+
+			 		//data = result
+			 		//debug
+			 		//console.log(result.users)
+    				    				
+    				//update the news section
     				insertNews(result.news)
+
+    				//not render unnecessarily
+    				if ( lastNew == result.news[0])
+    					return
+
+    				lastNew = result.news[0]
+
+    				// update and format the money 1.000.000
     				$('#money').html(result.users[name].toLocaleString('en').replace(/,/g,'.') )
 
+    				//elemento html com o dinheiro
+    				let elemoney = document.querySelector('.menu h3')
+
+    				if (result.users[name] >= 0)
+    					elemoney.className = 'display-money-green'
+    				else    				
+    					elemoney.className = 'display-money-red'
+
+    				//udate the transfer-to class
+    				//attTransferTo(result.users) 
+    				if (!attnomes)
+    					attTransferTo(result.users)	
+    					attnomes = true;		
   			}});
+
 		}
+
+		// hide the notification after some time
 		window.setTimeout(function(){
-            $('#notificacao').fadeOut('slow')
+            $('[notification]').fadeOut('slow')
+            $( "[notification]" ).remove();
         }, 3000);
 				
+		//update at begin 
 		att()
+
+		//set the refresh time
 		setInterval(att,3000)
 	</script>
 </body>

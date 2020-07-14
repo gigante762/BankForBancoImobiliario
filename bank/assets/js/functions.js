@@ -27,9 +27,10 @@ function att() {
         url: "acao/requests.php", data: {get: true},
         success: function(result) {
 
+
             //data = result
             //debug
-            //console.log(result.users)
+            //console.log(result.news)
 
             //update the news section
             insertNews(result.news)
@@ -67,6 +68,8 @@ function pagarBanco() {
     let qtd = Number($('#bancoValor').val())
     if (qtd == 0)
         return
+    //always positive value
+    qtd = Math.abs(qtd)    
     $('#bancoValor').val('')
     $.post("acao/requests.php", {
         pagar: 'true',
@@ -81,6 +84,8 @@ function sacarBanco() {
     let qtd = Number($('#bancoValor').val())
     if (qtd == 0)
         return
+    //always positive value
+    qtd = Math.abs(qtd)
     $('#bancoValor').val('')
     $.post("acao/requests.php", {
         sacar: 'true',
@@ -107,6 +112,9 @@ function transferir() {
     let qtd = Number($('#moneyTransfer').val())
     if (qtd == 0)
         return
+    //always positive value
+    qtd = Math.abs(qtd)
+    
     $('#moneyTransfer').val('')
     let to = $('#transfer-to').val()
 

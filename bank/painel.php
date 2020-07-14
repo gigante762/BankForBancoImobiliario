@@ -4,8 +4,8 @@
 	<title>Painel Bank</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
 	<div>
@@ -74,8 +74,8 @@
 	
 	
 
-	<script type="text/javascript" src="jquery.js"></script>
-	<script type="text/javascript" src="functions.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/functions.js"></script>
 	<script type="text/javascript">
 
 		//get the name of current user

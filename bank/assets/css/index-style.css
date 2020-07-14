@@ -6,7 +6,7 @@ body
 .form-index
 {
 	background: white;
-	border: 2px solid black;
+	
 	
 	margin-left: 30%;
 	margin-top: 50px;
@@ -19,8 +19,9 @@ body
 {
 	.form-index
 	{
-		margin:10% auto;
+		margin: auto;
 		max-width: max-content;
+		border:none;
 			
 	}
 }

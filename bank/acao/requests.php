@@ -1,6 +1,13 @@
 <?php
 		
 		//storing the name into a variable
+		
+		if (isset($_GET['get']))
+		{
+			echo file_get_contents('data.json');
+			exit();
+		}
+
 		$name = $_POST['name'];
 
 		$data = json_decode(file_get_contents('data.json'),true);

@@ -24,7 +24,7 @@ function insertNews(newsA) {
 
 function att() {
     $.ajax({
-        url: "acao/data.json",
+        url: "acao/requests.php", data: {get: true},
         success: function(result) {
 
             //data = result

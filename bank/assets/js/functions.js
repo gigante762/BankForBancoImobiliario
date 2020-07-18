@@ -1,3 +1,5 @@
+
+
 function attTransferTo(users) {
     $('#transfer-to').html('')
     for (let user of Object.keys(users)) {
@@ -16,7 +18,7 @@ function insertNews(newsA) {
 
     //$('#news').html('')
     let txt = ''
-    for (let i = 0; i < 5 && i < newsA.length; i++) {
+    for (let i = 0;  i < newsA.length; i++) {
         txt += '<p>' + newsA[i] + '</p>'
     }
     $('#news').html(txt)

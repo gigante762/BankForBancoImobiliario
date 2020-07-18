@@ -3,8 +3,6 @@
 	$db = new PDO('sqlite:sqlite.db');
 	$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 		
-	//storing the name into a variable
-		
 	if (isset($_GET['get']))
 	{
 		$data = array();
@@ -19,7 +17,7 @@
 		//this loop build this datastucture : 'name': 100, 'anotername': 120 
 		foreach ($users as $valor) {
 			$v =  $valor['cash'];
-			$data['users'][$valor[0]] = (int) $v;
+			$data['users'][ $valor[0] ] = (int) $v;
 		} 
 
 		//get news
@@ -30,7 +28,7 @@
 		
 		//insert the news 
 		foreach ($res as $valor) {
-			array_push($data['news'],$valor[0]);
+			array_push($data['news'], $valor[0]);
 		} 
 
 		echo json_encode( $data ) ;
@@ -38,13 +36,13 @@
 		exit();
 	}
 
+	// ######### GET SOME USEFUL VARIABLES ############
 	$name = $_POST['name'];
 
 	$sql = 	"select cash from users where name = '$name'";
-	
 	$res = $db->query($sql);
-	
 	$saldo = (int) $res->fetch()[0];
+	// ######### ------------------------- ############
 
 	if (isset($_POST['transferir']))
 	{

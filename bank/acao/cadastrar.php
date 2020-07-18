@@ -5,12 +5,12 @@ if (isset($_POST['name'])  && isset($_POST['money']))
 {
 	$db = new PDO('sqlite:sqlite.db');
 	$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
+	
+	//apaga todos os dados, users e news 
 	if ($_POST['name'] == 'reset')
 	{
 		$db->query("DELETE from users");
 		$db->query("DELETE from news");
-		  
 	}
 	else
 	{

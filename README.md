@@ -8,9 +8,9 @@ Dentro da pasta bank há duas imagens mostrando como ficou o projetinho.</p>
 Caso queira resetar o jogo, basta ir onde cadastra outros jogadores e digitar <i>reset</i>  </p>
 
 # Para Devs
-O banco de dados do jogo é bem simles, eu usei um arquivo sqlite.db para guardar todos os dados.
+* O banco de dados do jogo é bem simles, eu usei um arquivo sqlite.db para guardar todos os dados.
 
-Tem algumas coisas para fazer, como arrumar a table news. Mas isso não interfere no funcionamento.   
+* Tem algumas coisas para fazer, como arrumar a table news. Mas isso não vai interferir no funcionamento do projeto.   
 
 Sinta-se a vontade para fazer as modificações que desejar.
 

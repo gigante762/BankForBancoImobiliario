@@ -10,19 +10,21 @@
 	<div class="form-index">
 		<h4>Logar</h4>	
 		<div class="form-group">
-			<form action="acao/logar.php" method = "post" >
+			<form>
 				Escolha a conta: 
 				<select name ='name' id ='select' class="form-control">
 					<?php
-						$data = json_decode(file_get_contents('acao/data.json'),true);
-						//var_dump($data['users']);
-
-						foreach ($data['users'] as $key => $value) {
-							echo  "<option value='$key'>".$key."</option>"	;
-						} 
+						$db = new PDO('sqlite:acao/sqlite.db');
+						$result = $db->query('select name from users');
+						
+						foreach ($result as $row) {
+							echo  '<option value='.$row['name'].'>'.$row['name'].'</option>';
+						}
+						$db = null;
+						
 					?>
 				</select>
-				<input type="submit" name="submit" value="Entrar" class="form-control btn btn-info mt-2">	
+				<a href="painel.php" class="form-control btn btn-info mt-2">Entrar</a>		
 			</form>
 		</div>
 		

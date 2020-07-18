@@ -1,28 +1,26 @@
 <?php
-session_start();
+
+
 if (isset($_POST['name'])  && isset($_POST['money']))
 {
-	$name =  $_POST['name'];
-	//load data in the memory 
-	$data = json_decode(file_get_contents('data.json'),true);
+	$db = new PDO('sqlite:sqlite.db');
+	$db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-	//create new users
-	$data['users'][$name] = (int) $_POST['money'];
-	
-	//insert into array of users
-	//array_push($data['users'], $user);
-	
-	//check the reset command
 	if ($_POST['name'] == 'reset')
 	{
-		$data['users'] = array();
-		$data['news'] = array();  
+		$db->query("DELETE from users");
+		$db->query("DELETE from news");
+		  
 	}
+	else
+	{
+		$name =  $_POST['name'];
+		$money =  $_POST['money'];
 
-	//save data file  
-	file_put_contents('data.json', json_encode($data));
-
+		$db->query("insert into users (name, cash) values('$name','$money')");
+	}
 	//redirect to home page
 	header('location: ../index.php'); 
 }
+
 ?>

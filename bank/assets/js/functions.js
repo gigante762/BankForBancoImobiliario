@@ -1,17 +1,16 @@
 
 
 function attTransferTo(users) {
-    $('#transfer-to').html('')
-    for (let user of Object.keys(users)) {
-        if (name == user)
-            continue
-
+    let ele = document.getElementById('transfer-to')
+    ele.innerHTML = '' 
+    for (let user of users) {
+        
         let txt = document.createElement("option");
         txt.innerText = user;
 
-        $('#transfer-to').append(txt)
+        ele.appendChild(txt)        
     }
-    att()
+    attFetch()
 }
 
 function insertNews(newsA) {
@@ -21,21 +20,17 @@ function insertNews(newsA) {
     for (let i = 0;  i < newsA.length; i++) {
         txt += '<p>' + newsA[i] + '</p>'
     }
-    $('#news').html(txt)
+    document.getElementById('news').innerHTML = txt
+   
 }
 
-function att() {
-    $.ajax({
-        url: "acao/requests.php", data: {get: true},
-        success: function(result) {
-
-
-            //data = result
-            //debug
-            //console.log(result.news)
-
-            //update the news section
-            insertNews(result.news)
+function attFetch(){
+    //http://localhost/BankForBancoImobiliario/bank/
+    let url = 'acao/requests.php?get='+name
+    return fetch(url)
+    .then(response => response.json())
+    .then(result => {
+         insertNews(result.news)
 
             //not render unnecessarily
             if (lastNew == result.news[0])
@@ -44,97 +39,102 @@ function att() {
             lastNew = result.news[0]
 
             // update and format the money 1.000.000
-            $('#money').html(result.users[name].toLocaleString('en').replace(/,/g, '.'))
+            document.getElementById('money').innerHTML = result.cash.toLocaleString('en').replace(/,/g, '.')
 
-            currentmoney = result.users[name]
+            currentmoney = result.cash
 
             //elemento html com o dinheiro
             let elemoney = document.querySelector('.menu h3')
 
-            if (result.users[name] >= 0)
+            if (result.cash >= 0)
                 elemoney.className = 'display-money-green'
             else
                 elemoney.className = 'display-money-red'
 
-            //udate the transfer-to class
-            //attTransferTo(result.users) 
+            //udate the transfer-to class            
             if (!attnomes)
                 attTransferTo(result.users)
             attnomes = true;
-        }
-    });
 
+    })
+          
 }
 
 function pagarBanco() {
-    let qtd = Number($('#bancoValor').val())
+    let qtd = Number( document.getElementById('bancoValor').value )
     if (qtd == 0)
         return
     //always positive value
-    qtd = Math.abs(qtd)    
-    $('#bancoValor').val('')
-    $.post("acao/requests.php", {
-        pagar: 'true',
-        qtd: qtd,
-        name: name
-    });
+    qtd = Math.abs(qtd)   
+    document.getElementById('bancoValor').value = '' 
+    
+    let data = new FormData();
+   
+    data.append('pagar','true')        
+    data.append('qtd',qtd)        
+    data.append('name',name)        
+
+    return fetch("acao/requests.php",
+     {  method:'POST',
+        body:data
+     })
+    
     //console.log(qtd)
     //att()
 }
 
 function sacarBanco() {
-    let qtd = Number($('#bancoValor').val())
+    let qtd = Number(document.getElementById('bancoValor').value)
     if (qtd == 0)
         return
     //always positive value
     qtd = Math.abs(qtd)
-    $('#bancoValor').val('')
-    $.post("acao/requests.php", {
-        sacar: 'true',
-        qtd: qtd,
-        name: name
-    });
-    //console.log(qtd)
-    //att()
+    document.getElementById('bancoValor').value = ''
+
+    let data = new FormData();
+   
+    data.append('sacar','true')        
+    data.append('qtd',qtd)        
+    data.append('name',name)        
+
+    return fetch("acao/requests.php",
+     {  method:'POST',
+        body:data
+     })
+    
 }
 
 function gerarNotification(msg) {
     let txt = document.createElement("div");
     txt.innerHTML = "<div notification class='alert alert-danger' role='alert'>" + msg + "</div>"
-    $('#notifications').append(txt)
+    document.getElementById('notifications').appendChild(txt)
 
     window.setTimeout(function() {
-        $('[notification]').fadeOut('slow')
-        $("[notification]").remove();
+        document.getElementById('notifications').remove()        
     }, 3000);
 
 }
 
 function transferir() {
-    let qtd = Number($('#moneyTransfer').val())
+    let qtd = Number( document.getElementById('moneyTransfer').value )
     if (qtd == 0)
         return
     //always positive value
     qtd = Math.abs(qtd)
     
-    $('#moneyTransfer').val('')
-    let to = $('#transfer-to').val()
+    document.getElementById('moneyTransfer').value = '' 
+    
+    let to = document.getElementById('transfer-to').value
+    
+    let data = new FormData();
+   
+    data.append('transferir','true')        
+    data.append('qtd',qtd)        
+    data.append('name',name)        
+    data.append('to',to)        
 
-    let status = $.post("acao/requests.php", {
-            transferir: 'true',
-            qtd: qtd,
-            name: name,
-            to: to
-        },
-        function(msg) {
-            console.log(msg)
-        })
-
-
-    status.done(
-        function(msg) {
-            console.log(msg)
-        })
-    //console.log(status.)
-    //att()
+    return fetch("acao/requests.php",
+     {  method:'POST',
+        body:data
+     })
 }

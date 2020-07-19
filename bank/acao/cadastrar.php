@@ -12,6 +12,7 @@ if (isset($_POST['name'])  && isset($_POST['money']))
 		$db->query("DELETE from users");
 		$db->query("DELETE from news");
 	}
+	//cria um novo usuario.
 	else
 	{
 		$name =  $_POST['name'];

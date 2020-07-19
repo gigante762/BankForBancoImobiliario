@@ -73,8 +73,7 @@
 	</div>
 	
 	
-
-	<script type="text/javascript" src="assets/js/jquery.js"></script>
+	
 	<script type="text/javascript" src="assets/js/functions.js"></script>
 	<script type="text/javascript">
 
@@ -86,34 +85,25 @@
 		let currentmoney = 10
 
 		let lastNew = ''
+
+		document.getElementById('name').innerHTML = name.charAt(0).toUpperCase() + name.slice(1);
 		
-		$('#name').html(name.charAt(0).toUpperCase() + name.slice(1))
-
-		// hide the notification after some time
-		/*
-		window.setTimeout(function(){
-            $('[notification]').fadeOut('slow')
-            $( "[notification]" ).remove();
-        }, 3000);
-        */
-				
-
-		$('#transferirBtn').on('click', function(ev){
+		
+		document.getElementById('transferirBtn').onclick = function(ev){
 			ev.preventDefault()
 			transferir()
-		})
-		$('#pagarBtn').on('click', function(ev){
+		} 
+		document.getElementById('pagarBtn').onclick = function(ev){
 			ev.preventDefault()
 			pagarBanco()
-		})
-		$('#sacarBtn').on('click', function(ev){
+		}
+		document.getElementById('sacarBtn').onclick = function(ev){
 			ev.preventDefault()
 			sacarBanco()
-		})
-		$('#moneyTransfer').on('change', function(ev){
-			//ev.preventDefault()
-			//sacarBanco()
-			let qtd = Number($('#moneyTransfer').val())
+		} 
+		document.getElementById('moneyTransfer').onchange = function(ev){
+			ev.preventDefault()			
+			let qtd = Number( document.getElementById('moneyTransfer').value )
 			if (qtd > currentmoney)
 			{
 				moneyTransfer.className = 'form-control border-danger'
@@ -121,14 +111,13 @@
 			}
 			else
 				moneyTransfer.classList.remove('border-danger')	
-		})
-		
-			
+		}
+					
 		//update at begin 
-		att()
+		attFetch()
 
 		//set the refresh time
-		setInterval(att,3000)
+		setInterval(attFetch,3000)
 	</script>
 </body>
 </html>

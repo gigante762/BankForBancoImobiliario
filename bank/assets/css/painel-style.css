@@ -13,6 +13,15 @@ body
     margin-top: 20px;
 	
 }
+#news {
+	overflow: scroll;
+    max-height: 200px;
+	-webkit-overflow-scrolling: touch;
+}
+
+#name {
+	text-transform: capitalize;
+}
 .display-money-green
 {
 	color: green;

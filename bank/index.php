@@ -13,16 +13,16 @@
 			<form>
 				Escolha a conta: 
 				<select name ='name' id ='select' class="form-control">
-					<?php
-						$db = new PDO('sqlite:acao/sqlite.db');
-						$result = $db->query('select name from users');
-						
-						foreach ($result as $row) {
-							echo  '<option value='.$row['name'].'>'.$row['name'].'</option>';
-						}
-						$db = null;
-						
-					?>
+
+				<?php require '../vendor/autoload.php';
+						$users = (new App\AccountModel)->getAllUsers();
+
+						foreach ($users as $user): ?>
+							<option value='<?= $user['name'] ?>'>
+							 	<?= $user['name'] ?>
+							 </option>;
+						<?php endforeach; ?>
+
 				</select>
 				<a href="painel.php" class="form-control btn btn-info mt-2">Entrar</a>		
 			</form>
@@ -31,7 +31,7 @@
 		<hr>
 
 		<h4>Cadastrar</h4>
-		<form action="acao/cadastrar.php" method = "post">
+		<form action="acao/router.php?route=cadastrar" method = "post">
 			<div class="form-group">
 				<label>Coloque o seu nome: </label>
 				<input type="text" name="name" autocomplete="off" class="form-control" placeholder="lucas">
@@ -42,6 +42,10 @@
 				<input type="number" name="money" class="form-control" placeholder='1000'>
 				<input type="submit" name="submit" value="Cadastrar" class="form-control btn btn-success mt-2">	
 			</div>
+		</form>
+		<form action="acao/router.php?route=reset" method="post">
+				<button class="btn btn-sm btn-warning mt-5">Resetar</button>
+				<small class="text-muted form-text">Clique aqui para apagar todos os usuários</small>					
 		</form>
 	</div>
 

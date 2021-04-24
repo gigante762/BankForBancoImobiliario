@@ -8,18 +8,28 @@ Dentro da pasta bank há duas imagens mostrando como ficou o projetinho.</p>
 Caso queira resetar o jogo, basta ir onde cadastra outros jogadores e digitar <i>reset</i>  </p>
 
 ## Como usar 
+Baixe o projeto com `git clone https://github.com/gigante762/BankForBancoImobiliario.git`
+
+vá até a pasta `cd BankForBancoImobiliario`
+
 Baixe as dependencias do composer com `composer update`
 
 Basta inciar o servidor do banco com o comando `php server.php`
 
+Defina a baseurl em _src/app/config.php_
+
 Acesse o local do projeto no seu navegaro _baseurl_/bank
 
 # Para Devs
-* O banco de dados do jogo é bem simles, eu usei um arquivo sqlite.db para guardar todos os dados.
+* O banco de dados do jogo é bem simles, eu usei um arquivo sqlite.db (_SQLite_) para guardar todos os dados.
 
-* O jogo não possui tratamentos contra SQLinjection.
+Caso perca o schema use o código sql
+```
+    CREATE TABLE news(id integer PRIMARY KEY, msg text, hora datetime DEFAULT 'CURRENT_TIME');
+    CREATE TABLE users (name varchar(200) PRIMARY KEY, cash bigint);
+```
 
-* Tem algumas coisas para fazer, como arrumar a table news. Mas isso não vai interferir no funcionamento do projeto.   
+O jogo *não possui* tratamentos contra SQLinjection. 
 
 Sinta-se a vontade para fazer as modificações que desejar.
 

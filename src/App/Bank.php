@@ -14,7 +14,8 @@ class Bank implements MessageComponentInterface {
         // Store the new connection to send messages to later
         $this->clients->attach($conn);
 
-        echo "New connection! ({$conn->resourceId})\n";
+        //echo "New connection! ({$conn->resourceId})\n";
+        echo "New connection!\n";
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
@@ -28,7 +29,7 @@ class Bank implements MessageComponentInterface {
         $text = $data->msg ?? '';
         $type = $data->type ?? '';
 
-        echo ">{$name}: {$text} | {$type}\n";
+        echo ">Name: {$name} | Text: {$text} | Type: {$type}\n";
 
         if($type === 'connected')
         {

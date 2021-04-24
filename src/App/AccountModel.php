@@ -123,8 +123,8 @@ class AccountModel {
         }
         else
 		{	//display an alert whose will be fadeOff by the id notification
-			header('Content-Type: application/json');
-			echo '{status:fail}';	  
+			/* header('Content-Type: application/json');
+			echo '{status:fail}'; */	  
 			//echo "<div notification class='alert alert-danger' role='alert'>Saldo insuficiente!</div>";
 		}
     }

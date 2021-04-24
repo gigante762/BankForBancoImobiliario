@@ -1,8 +1,8 @@
 <?php
 
-require_once '../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
-switch ($_GET['route'] ?? $route) {
+switch ($_GET['route']) {
     case "cadastrar":
         (new \App\AccountController)->createUser();
         break;

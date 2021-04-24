@@ -15,7 +15,7 @@ function updateNews()
 {
     let news = document.getElementById('news')
     news.innerHTML = ''
-    fetch('acao/router.php?route=getnews' )
+    fetch('router.php?route=getnews' )
     .then(response => response.json())
     .then(result => {
         //console.log(result)
@@ -30,7 +30,7 @@ function updateNews()
 
 function updateMyMoney()
 {
-    fetch('acao/router.php?route=find&name=' + name)
+    fetch('router.php?route=find&name=' + name)
     .then(response => response.json())
     .then(result => {
         //console.log(result)

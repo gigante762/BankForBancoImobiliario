@@ -31,7 +31,7 @@
 		<hr>
 
 		<h4>Cadastrar</h4>
-		<form action="acao/router.php?route=cadastrar" method = "post">
+		<form action="router.php?route=cadastrar" method = "post">
 			<div class="form-group">
 				<label>Coloque o seu nome: </label>
 				<input type="text" name="name" autocomplete="off" class="form-control" placeholder="lucas">
@@ -43,7 +43,7 @@
 				<input type="submit" name="submit" value="Cadastrar" class="form-control btn btn-success mt-2">	
 			</div>
 		</form>
-		<form action="acao/router.php?route=reset" method="post">
+		<form action="router.php?route=reset" method="post">
 				<button class="btn btn-sm btn-warning mt-5">Resetar</button>
 				<small class="text-muted form-text">Clique aqui para apagar todos os usuários</small>					
 		</form>

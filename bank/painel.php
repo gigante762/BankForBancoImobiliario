@@ -12,13 +12,13 @@
 <body>
 	<?php require_once '../vendor/autoload.php'; ?>
 	<div>
-		<a href="index.php" class="btn-danger" style="padding: 5px;">
-			< Sair </a>
+		<a href="index.php" class="btn-danger p-1" >
+			< Sair</a>
 	</div>
 
-	<div class="menu">
+	<div class="menu mb-2">
 		<h5>Bem vindo(a), <span id='name'></span></h5>
-		<h3 class='display-money-green'>R$ <small id='money'></small></h3>
+		<h3 class='display-money-green'><small id='money'></small></h3>
 	</div>
 	<div id='notifications'>
 
@@ -27,7 +27,7 @@
 	<div class=" container">
 		<div class="row">
 			<div class="col-md mb-2">
-				<div class="card">
+				<div class="card p-3">
 					<form action="painel.php" method="post">
 						<label>Transferir</label>
 						<div class="input-group mb-2">
@@ -46,7 +46,7 @@
 			</div>
 
 			<div class="col">
-				<div class="card form-group ">
+				<div class="card form-group p-3">
 					<div>
 						<label>Banco:</label>
 						<div class="input-group mb-2">
@@ -165,9 +165,7 @@
 				transferirBtn.disabled = false;
 			}
 		})
-	</script>
-
-	<script>
+	
 		/* Get Money when user enter at the application */
 		updateMyMoney()
 

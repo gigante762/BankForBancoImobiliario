@@ -35,7 +35,20 @@ function updateMyMoney()
     .then(result => {
         //console.log(result)
         // update and format the money 1.000.000
-        document.getElementById('money').innerHTML = result.cash.toLocaleString('en').replace(/,/g, '.');
+        //document.getElementById('money').innerHTML = result.cash.toLocaleString('en').replace(/,/g, '.');
+        let moneyEle = document.getElementById('money') 
+        moneyEle.innerHTML = Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          }).format(result.cash);
+        
         currentMoney = result.cash;
+        if(currentMoney < 0)
+            moneyEle.classList.add('text-danger');
+        else
+            moneyEle.classList.remove('text-danger');
+       
+        
+        
     })
 }

@@ -35,7 +35,6 @@
 			<div class="form-group">
 				<label>Coloque o seu nome: </label>
 				<input type="text" name="name" autocomplete="off" class="form-control" placeholder="lucas">
-				<small class="text-muted form-text">Ou coloque <i>reset</i> no nome para apagar todos os usuários. </small>					
 			</div>
 			<div class="form-group">
 				<label>Coloque a quantidade de dinheiro: </label>	

@@ -14,7 +14,7 @@ body
 	
 }
 #news {
-	overflow: scroll;
+	overflow-y: scroll;
     max-height: 200px;
 	-webkit-overflow-scrolling: touch;
 }
@@ -31,10 +31,6 @@ body
 	color: red;
 }
 
-.card
-{
-	padding: 10px;
-}
 
 .bancoBTN
 {

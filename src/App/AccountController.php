@@ -18,14 +18,14 @@ class AccountController {
 
        $this->repository->createUser($name, $money);
 
-       header('location: ../index.php');
+       header('location: index.php');
     }
 
     public function resetUsers()
     {
         $this->repository->reset();
 
-        header('location: ../index.php');
+        header('location: index.php');
     }
 
     public function getNews()

@@ -55,7 +55,7 @@
 
 		//set the localstore to the name of current user 
 		ele.onchange = function () {
-			let name =ele.value
+			let name = ele.value
 			localStorage.setItem('name',name)
 			//console.log(name)
 		}

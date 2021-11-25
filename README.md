@@ -7,6 +7,9 @@ Dentro da pasta bank há imagens mostrando como ficou o projetinho.</p>
 <p>Na tela inicial, você coloca o nome dos jogadores e também o saldo inicial. Você pode acrescentar quantos jogadores desejar.
 Caso queira resetar o jogo, basta ir onde cadastra outros jogadores e digitar <i>reset</i>  </p>
 
+## Link da história
+[Confira aqui](https://mundozeroum.blogspot.com/2021/11/projeto-bankforbancoimobiliario-banco.html)
+
 ## Como usar 
 Baixe o projeto com `git clone https://github.com/gigante762/BankForBancoImobiliario.git`
 

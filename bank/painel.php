@@ -89,7 +89,7 @@
 		};
 
 
-		//get the name of current user
+		// get the name of current user
 		const name = localStorage.getItem('name')
 		let currentMoney = '';
 
